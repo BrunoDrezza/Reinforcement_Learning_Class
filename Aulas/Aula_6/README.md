@@ -1,30 +1,40 @@
-# Atividade: Algoritmo SARSA (On-Policy) vs Q-Learning (Off-Policy)
+# Atividade: Análise Comparativa - Algoritmos SARSA e Q-Learning
+
+Este repositório contém a implementação e a análise comparativa dos algoritmos de Aprendizado por Reforço Q-Learning (Off-policy) e SARSA (On-policy), aplicados aos ambientes `Taxi-v3` e `CliffWalking-v1` da biblioteca Gymnasium.
 
 ## 1. Análise do Ambiente Taxi-Driver
 
 **Qual algoritmo tem os melhores resultados? A curva de aprendizado dos dois algoritmos é a mesma? O comportamento final do agente, depois de treinado, é ótimo em ambos os casos?**
 
-Ambos os algoritmos convergem para resultados excelentes e alcançam uma política ótima no ambiente do Taxi-Driver (retornos em torno de 8.0 a 11.0, dependendo do estado inicial).
-* **Curva de Aprendizado:** As curvas são muito semelhantes. Contudo, o SARSA tende a ter uma curva de aprendizado ligeiramente mais suave durante o treinamento. Por ser *on-policy*, ele penaliza as ações exploratórias ruins (causadas pelo $\epsilon$), sofrendo menos quedas abruptas que o Q-Learning.
-* **Comportamento Final:** Na fase de testes (com $\epsilon = 0$), o comportamento final de ambos é ótimo, resolvendo o ambiente com o número mínimo de passos.
+No ambiente do Taxi-Driver, **ambos os algoritmos apresentam resultados equivalentes e excelentes**. 
+* **Curva de Aprendizado:** As curvas de aprendizado são extremamente semelhantes e convergem praticamente ao mesmo tempo. O SARSA, contudo, pode apresentar uma curva marginalmente mais suave durante o treinamento por penalizar trajetórias exploratórias ruins (causadas pelo $\epsilon$).
+* **Comportamento Final:** Após o treinamento, o comportamento final de ambos os agentes é ótimo. A validação em 100 episódios (com $\epsilon = 0$) comprova isso empírica e estatisticamente:
+  * **SARSA:** Média de recompensas de 8.11 (Desvio Padrão: 2.58) | Média de ações: 12.89 (Desvio Padrão: 2.58)
+  * **Q-Learning:** Média de recompensas de 8.02 (Desvio Padrão: 2.52) | Média de ações: 12.98 (Desvio Padrão: 2.52)
+  * *(Observação: O desvio padrão não é zero devido à estocasticidade da inicialização do ambiente Taxi-v3, onde passageiro e destino variam a cada episódio. A igualdade entre o desvio padrão das ações e das recompensas prova matematicamente que os agentes não cometem erros que geram penalidades de -10, comportando-se de forma perfeitamente linear e ótima).*
 
-![Curva de Aprendizado SARSA - Taxi](https://github.com/BrunoDrezza/Reinforcement_Learning_Class/blob/main/Outputs/Assignment/curva_sarsa_taxi_v3.png?raw=true)
+![Comparação Taxi-v3](https://github.com/BrunoDrezza/Reinforcement_Learning_Class/blob/main/Outputs/Assignment/comparacao_taxi_v3.png?raw=true)
+
 
 ## 2. Análise do Ambiente Cliff Walking
 
-**Qual algoritmo tem os melhores resultados? A curva de aprendizado dos dois algoritmos é a mesma? O comportamento final do agente, depois de treinado, é ótimo? Qual agente tem um comportamento mais conservador e qual tem um comportamento mais otimista?**
+**Qual algoritmo tem os melhores resultados? A curva de aprendizado dos dois algoritmos é a mesma? O comportamento final do agente é ótimo? Qual tem comportamento conservador e qual é otimista?**
 
-É no `CliffWalking` que as diferenças teóricas se tornam evidentes na prática:
-* **Conservador vs. Otimista:** O **Q-Learning** é **otimista**. Ele aprende a rota mais rápida colada no abismo (recompensa de **-13.0**), pois ignora as quedas acidentais causadas pela exploração. O **SARSA** é **conservador**. Ele atualiza seus valores considerando a política real (com o $\epsilon$), percebe o perigo de "tropeçar" no penhasco e aprende uma rota mais segura, afastada da borda (recompensa de **-15.0**).
-* **Curva de Aprendizado:** As curvas são diferentes. A curva do SARSA é superior (menos negativa) durante o treinamento, pois ele aprende rapidamente a evitar o penhasco. O Q-Learning cai no abismo frequentemente durante o treino, jogando sua curva para baixo.
-* **Comportamento Final:** O comportamento final de ambos é "ótimo" sob perspectivas diferentes. O Q-Learning encontra o menor caminho absoluto (ótimo teórico). O SARSA encontra o menor caminho seguro (ótimo prático sob penalidade de exploração).
+É no ambiente *Cliff Walking* que as diferenças teóricas se refletem drasticamente na prática. 
+* **Conservador vs. Otimista:** O **Q-Learning** é **otimista**. Ele ignora a função de escolha de ação atual (que possui aleatoriedade) e assume que no futuro sempre executará o valor máximo $max_{A'} Q(s', A')$. Com isso, aprende a rota mais rápida possível tangenciando o abismo. O **SARSA** é **conservador**. Ele atualiza os valores considerando a política exploratória real (com os riscos do $\epsilon$), percebe o perigo de "tropeçar" no penhasco e aprende uma rota mais longa, porém segura.
+* **Curva de Aprendizado:** As curvas são nitidamente diferentes. A curva do SARSA é amplamente superior (menos negativa) durante o treinamento *online*, pois ele cai menos no abismo. O Q-Learning sofre severas quedas na recompensa acumulada devido à sua exploração na beira do penhasco.
+* **Comportamento Final:** A validação em 100 episódios ilustra que ambos convergem, mas para "ótimos" diferentes:
+  * **SARSA:** Média de recompensas -15.0 (Desvio Padrão: 0.0) | Média de ações: 15.0
+  * **Q-Learning:** Média de recompensas -13.0 (Desvio Padrão: 0.0) | Média de ações: 13.0
+  * *(Observação: Como o ambiente é determinístico e $\epsilon = 0$ na validação, o desvio padrão de 0.0 prova que ambos fixaram uma política final estável. O Q-Learning encontrou o ótimo teórico de 13 passos, enquanto o SARSA encontrou o ótimo prático seguro de 15 passos).*
 
-![Curva de Aprendizado SARSA - Cliff Walking](https://github.com/BrunoDrezza/Reinforcement_Learning_Class/blob/main/Outputs/Assignment/curva_sarsa_cliffwalking_v1.png?raw=true)
+![Comparação Cliff Walking-v1](https://github.com/BrunoDrezza/Reinforcement_Learning_Class/blob/main/Outputs/Assignment/comparacao_cliffwalking_v1.png?raw=true)
+
 
 ## 3. Diferença Geral: Q-Learning vs SARSA
 
-A diferença elementar está na equação de atualização da Função de Valor (Equação de Bellman):
-* **Q-Learning (Off-Policy):** Calcula o erro temporal com base no valor máximo possível do próximo estado: $\max_{A'}Q(s',A')$. Ele aprende a política ótima ignorando a política de exploração atual.
-* **SARSA (On-Policy):** Calcula o erro temporal com base na ação $a'$ que o agente **realmente executará** no próximo estado: $Q(s',a')$. Ele avalia e melhora a política que está sendo seguida no momento.
+A diferença elementar encontra-se na Equação de Bellman para a atualização dos valores na Q-table:
+* **Q-Learning (Off-Policy):** O algoritmo Q-Learning é *off-policy* porque a diferença entre o novo valor e a estimativa antiga considera o valor máximo das possibilidades no novo estado: $\max_{A'}Q(s',A')$. Ele desvincula a política de aprendizado da política de comportamento atual.
+* **SARSA (On-Policy):** O algoritmo SARSA é *on-policy* porque atualiza a estimativa considerando a real ação $a'$ executada pelo agente no novo estado $s'$, utilizando $Q(s',a')$.
 
-Em suma, os agentes terão comportamentos e curvas de aprendizado distintas em ambientes que apresentam caminhos perigosos adjacentes a rotas ótimas (como o Cliff Walking), sendo o SARSA mais adequado quando a punição por erros durante a execução/treino for inaceitável.
+**Comportamento e Curvas:** Os agentes treinados **não** terão necessariamente o mesmo comportamento, e as curvas **não** serão iguais caso o ambiente imponha penalidades severas próximas à rota ótima (como no Cliff Walking). O SARSA tende a ter uma performance *online* (curva de aprendizado) melhor e mais estável, aprendendo políticas conservadoras. O Q-Learning foca na política ótima global, independentemente dos custos incorridos durante a fase de treinamento exploratório.
