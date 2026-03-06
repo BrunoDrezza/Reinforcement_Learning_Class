@@ -1,4 +1,6 @@
-# Atividade: Algoritmo SARSA (On-Policy) vs Q-Learning (Off-Policy)## 1. Análise do Ambiente Taxi-Driver
+# Atividade: Algoritmo SARSA (On-Policy) vs Q-Learning (Off-Policy)
+
+## 1. Análise do Ambiente Taxi-Driver
 
 **Qual algoritmo tem os melhores resultados? A curva de aprendizado dos dois algoritmos é a mesma? O comportamento final do agente, depois de treinado, é ótimo em ambos os casos?**
 
