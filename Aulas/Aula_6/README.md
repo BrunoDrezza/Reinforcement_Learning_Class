@@ -6,7 +6,7 @@ Ambos os algoritmos convergem para resultados excelentes e alcançam uma políti
 * **Curva de Aprendizado:** As curvas são muito semelhantes. Contudo, o SARSA tende a ter uma curva de aprendizado ligeiramente mais suave durante o treinamento. Por ser *on-policy*, ele penaliza as ações exploratórias ruins (causadas pelo $\epsilon$), sofrendo menos quedas abruptas que o Q-Learning.
 * **Comportamento Final:** Na fase de testes (com $\epsilon = 0$), o comportamento final de ambos é ótimo, resolvendo o ambiente com o número mínimo de passos.
 
-![Curva de Aprendizado SARSA - Taxi](..\..Outputs/Assignment/curva_sarsa_taxi_v3.png)
+![Curva de Aprendizado SARSA - Taxi](https://github.com/BrunoDrezza/Reinforcement_Learning_Class/blob/main/Outputs/Assignment/curva_sarsa_taxi_v3.png?raw=true)
 
 ## 2. Análise do Ambiente Cliff Walking
 
@@ -17,7 +17,7 @@ Ambos os algoritmos convergem para resultados excelentes e alcançam uma políti
 * **Curva de Aprendizado:** As curvas são diferentes. A curva do SARSA é superior (menos negativa) durante o treinamento, pois ele aprende rapidamente a evitar o penhasco. O Q-Learning cai no abismo frequentemente durante o treino, jogando sua curva para baixo.
 * **Comportamento Final:** O comportamento final de ambos é "ótimo" sob perspectivas diferentes. O Q-Learning encontra o menor caminho absoluto (ótimo teórico). O SARSA encontra o menor caminho seguro (ótimo prático sob penalidade de exploração).
 
-![Curva de Aprendizado SARSA - Cliff Walking](..\..\Outputs/Assignment/curva_sarsa_cliffwalking_v1.png)
+![Curva de Aprendizado SARSA - Cliff Walking](https://github.com/BrunoDrezza/Reinforcement_Learning_Class/blob/main/Outputs/Assignment/curva_sarsa_cliffwalking_v1.png?raw=true)
 
 ## 3. Diferença Geral: Q-Learning vs SARSA
 
