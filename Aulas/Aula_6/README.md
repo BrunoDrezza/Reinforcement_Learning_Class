@@ -1,6 +1,6 @@
 # Atividade: Análise Comparativa - Algoritmos SARSA e Q-Learning
 
-Este repositório contém a implementação e a análise comparativa dos algoritmos de Aprendizado por Reforço Q-Learning (Off-policy) e SARSA (On-policy), aplicados aos ambientes `Taxi-v3` e `CliffWalking-v1` da biblioteca Gymnasium.
+Esta Aula contém a implementação e a análise comparativa dos algoritmos de Aprendizado por Reforço Q-Learning (Off-policy) e SARSA (On-policy), aplicados aos ambientes `Taxi-v3` e `CliffWalking-v1` da biblioteca Gymnasium.
 
 ## 1. Análise do Ambiente Taxi-Driver
 
