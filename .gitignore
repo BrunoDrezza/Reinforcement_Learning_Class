@@ -1,0 +1,21 @@
+# Cache e arquivos compilados do Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ambientes Virtuais (Essencial para não subir bibliotecas pesadas)
+venv/
+env/
+.env/
+
+# Configurações locais do VS Code
+.vscode/
+
+# Checkpoints do Jupyter Notebook (já que você roda algumas células)
+.ipynb_checkpoints/
+
+# Arquivos de sistema do Windows/Mac
+Thumbs.db
+.DS_Store
+
+\pdfs
