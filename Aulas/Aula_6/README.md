@@ -11,7 +11,7 @@ No ambiente do Taxi-Driver, **ambos os algoritmos apresentam resultados equivale
 * **Comportamento Final:** Após o treinamento, o comportamento final de ambos os agentes é ótimo. A validação em 100 episódios (com $\epsilon = 0$) comprova isso empírica e estatisticamente:
   * **SARSA:** Média de recompensas de 8.11 (Desvio Padrão: 2.58) | Média de ações: 12.89 (Desvio Padrão: 2.58)
   * **Q-Learning:** Média de recompensas de 8.02 (Desvio Padrão: 2.52) | Média de ações: 12.98 (Desvio Padrão: 2.52)
-  * *(Observação: O desvio padrão não é zero devido à estocasticidade da inicialização do ambiente Taxi-v3, onde passageiro e destino variam a cada episódio. A igualdade entre o desvio padrão das ações e das recompensas prova matematicamente que os agentes não cometem erros que geram penalidades de -10, comportando-se de forma perfeitamente linear e ótima).*
+* **Nota Metodológica (Taxi-v3):** O desvio padrão não é nulo devido à inicialização estocástica do ambiente (onde o passageiro e o destino variam a cada episódio). A igualdade exata entre o desvio padrão das ações e o das recompensas prova matematicamente que os agentes já estão treinados e não cometem erros (como tentar "pegar" um passageiro inexistente ou "deixá-lo" no local errado), o que geraria penalidades de -10. O comportamento é, portanto, perfeitamente linear e ótimo para todas as configurações iniciais.
 
 ![Comparação Taxi-v3](https://github.com/BrunoDrezza/Reinforcement_Learning_Class/blob/main/Outputs/Assignment/comparacao_taxi_v3.png?raw=true)
 
@@ -26,7 +26,7 @@ No ambiente do Taxi-Driver, **ambos os algoritmos apresentam resultados equivale
 * **Comportamento Final:** A validação em 100 episódios ilustra que ambos convergem, mas para "ótimos" diferentes:
   * **SARSA:** Média de recompensas -15.0 (Desvio Padrão: 0.0) | Média de ações: 15.0
   * **Q-Learning:** Média de recompensas -13.0 (Desvio Padrão: 0.0) | Média de ações: 13.0
-  * *(Observação: Como o ambiente é determinístico e $\epsilon = 0$ na validação, o desvio padrão de 0.0 prova que ambos fixaram uma política final estável. O Q-Learning encontrou o ótimo teórico de 13 passos, enquanto o SARSA encontrou o ótimo prático seguro de 15 passos).*
+* **Nota Metodológica (Cliff Walking):** Como o ambiente é determinístico e o fator de exploração foi zerado (epsilon = 0) durante a validação, o desvio padrão de 0.0 prova que ambos os agentes convergiram para uma política estável. O Q-Learning encontrou o "ótimo teórico" de 13 passos (beirando o penhasco), enquanto o SARSA encontrou o "ótimo seguro" de 15 passos (rota conservadora).
 
 ![Comparação Cliff Walking-v1](https://github.com/BrunoDrezza/Reinforcement_Learning_Class/blob/main/Outputs/Assignment/comparacao_cliffwalking_v1.png?raw=true)
 
